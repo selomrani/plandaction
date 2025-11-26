@@ -60,3 +60,58 @@
 
 // players[1].name = "Salah" 
 // StoreToLocalStorage(players,"storedArray")
+
+
+const resetbtn = document.getElementById("reset")
+resetbtn.addEventListener("click", (e) => {
+    localStorage.clear()
+})
+
+// partie 4 (CRUD)
+
+
+let players = [{
+    name: "soufyane", rank: "Pro", id: 1001
+},
+{
+    name: "Adam", rank: "Newbie", id: 1002
+},
+{
+    name: "Walid", rank: "intermediate", id: 1003
+}]
+function StoreToLocalStorage(item, key) {
+    const ToStore = JSON.stringify(item)
+    localStorage.setItem(key, ToStore)
+}
+function GetLocalStorage(key) {
+    let getlocal = localStorage.getItem(key)
+    let localdata = JSON.parse(getlocal)
+    localdata = players
+}
+const addBtn = document.getElementById("add")
+addBtn.addEventListener("click", function () {
+    let newPlayer = {}
+    newPlayer.name = prompt("Please enter your name")
+    newPlayer.rank = prompt("Please enter your current rank")
+    newPlayer.id = prompt("Please enter a unique id (1003+)")
+    players.push(newPlayer)
+    console.log(players)
+    GetLocalStorage("StoredPlayers")
+    StoreToLocalStorage(players, "StoredPlayers")
+})
+
+const deleteBtn = document.getElementById("delete")
+deleteBtn.addEventListener("click", function () {
+    let deleteid = prompt("Enter an ID to delete")
+    const playerTodelete = players.find((player) => {
+        return player.id == deleteid
+    })
+    console.log(playerTodelete)
+    for (let i = 0; i < players.length; i++) {
+        if (players[i] == playerTodelete) {
+            players.splice(i, 1)
+        }
+    }
+    StoreToLocalStorage(players, "StoredPlayers")
+    console.log(players)
+})
