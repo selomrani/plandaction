@@ -1,6 +1,6 @@
 // //exercice (partie 1)
 // let person = {
-//     "name" : "Ali"
+//     name : "Ali"
 // }
 // // store to local storage
 // const itemtostore = JSON.stringify(person)
@@ -15,10 +15,10 @@
 // partie 2
 
 // let people = [{
-//     "name" : "soufyane" , "age" : 19
+//     name : "soufyane" , "age" : 19
 // },
 // {
-//     "name" : "adam","age" : 20
+//     name : "adam","age" : 20
 // }]
 
 // store
@@ -38,3 +38,25 @@
 
 
 // partie 3
+
+// let person = {
+//     id : 1, name : "salah" 
+// }
+// let players = [{
+//     name : "soufyane" , rank : "Pro" , id : 1001
+// },
+// {
+//     name : "Adam" , rank : "Newbie", id : 1002
+// },
+// {
+//     name : "Walid" , rank : "intermediate" , id : 1003
+// }]
+// StoreToLocalStorage(players,"storedArray")
+// StoreToLocalStorage(person,"storedObject")
+// function StoreToLocalStorage(item,key){
+//     const ToStore = JSON.stringify(item)
+//     localStorage.setItem(key,ToStore)
+// }
+
+// players[1].name = "Salah" 
+// StoreToLocalStorage(players,"storedArray")
