@@ -134,3 +134,4 @@ editBtn.addEventListener("click", function () {
     
 })
 
+// DOM (Read and write) in localStoragepart5.js file 
