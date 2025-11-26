@@ -115,3 +115,14 @@ deleteBtn.addEventListener("click", function () {
     StoreToLocalStorage(players, "StoredPlayers")
     console.log(players)
 })
+
+const editBtn = document.getElementById("edit")
+
+editBtn.addEventListener("click", function () {
+    let editId = prompt("Enter Id ")
+    const playerToedit = players.find((player) => {
+        return player.id == editId
+    })
+    console.log(playerToedit)
+})
+
