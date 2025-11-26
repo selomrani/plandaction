@@ -123,6 +123,14 @@ editBtn.addEventListener("click", function () {
     const playerToedit = players.find((player) => {
         return player.id == editId
     })
-    console.log(playerToedit)
+    for (let i = 0; i < players.length; i++) {
+        if (players[i] == playerToedit) {
+            players[i].name = prompt("Enter new name ")
+            players[i].rank = prompt("Enter new rank ")
+        }
+    }
+    StoreToLocalStorage(players, "StoredPlayers")
+    console.log(players)
+    
 })
 
