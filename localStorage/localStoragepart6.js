@@ -1,21 +1,21 @@
 document.addEventListener("DOMContentLoaded", function () {
     GetLocalStorage("storepeople")
 });
-let staff = [{
-    fullname: "Soufyane el omrani",
-    ref: 123222
-},
-{
-    fullname: "Adam taj",
-    ref: 293922
-},
-{
-    fullname: "Walid jadour",
-    ref: 456170
-}, {
-    fullname: "john cena",
-    ref: 239383
-}]
+let staff = []
+
+
+const addform = document.forms[0]
+addform.addEventListener("submit", (e) => {
+    e.preventDefault()
+    let person = {
+        name: addform.name.value,
+        ref: addform.ref.value
+    }
+    GetLocalStorage("storestaff")
+    staff.push(person)
+    StoreToLocalStorage(staff, "storestaff")
+    console.log(staff)
+})
 
 function renderstaffcards() {
     const staffcard = document.createElement("div")
