@@ -1,17 +1,20 @@
+document.addEventListener("DOMContentLoaded", function () {
+    GetLocalStorage("storepeople")
+});
 let staff = [{
     fullname: "Soufyane el omrani",
-    ref :123222
+    ref: 123222
 },
 {
     fullname: "Adam taj",
-    ref : 293922
+    ref: 293922
 },
 {
     fullname: "Walid jadour",
-    ref:456170
+    ref: 456170
 }, {
     fullname: "john cena",
-    ref : 239383
+    ref: 239383
 }]
 
 function renderstaffcards() {
@@ -33,10 +36,31 @@ function renderstaffcards() {
     cardsholder.appendChild(staffcard)
 }
 renderstaffcards()
+StoreToLocalStorage(staff, "storestaff")
 const delteBtns = document.querySelectorAll(".delete")
-delteBtns.forEach(deleteBtn=>{
-    deleteBtn.addEventListener("click",(e)=>{
+delteBtns.forEach(deleteBtn => {
+    deleteBtn.addEventListener("click", (e) => {
         const dltref = e.currentTarget.getAttribute("staff-ref");
-        console.log(dltref)
+        const staffToDelete = staff.find(staffMember => {
+            return staffMember.ref == dltref
+        })
+        for (let i = 0; i < staff.length; i++) {
+            if (staff[i] == staffToDelete) {
+                staff.splice(i, 1)
+            }
+        }
+        StoreToLocalStorage(staff, "storestaff")
+        console.log(staff)
     })
+
 })
+function StoreToLocalStorage(item, key) {
+    const ToStore = JSON.stringify(item)
+    localStorage.setItem(key, ToStore)
+}
+function GetLocalStorage(key) {
+    let getlocal = localStorage.getItem(key)
+    let localdata = JSON.parse(getlocal)
+    staff = localdata
+}
+
