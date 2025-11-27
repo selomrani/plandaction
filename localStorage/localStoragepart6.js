@@ -1,6 +1,6 @@
-document.addEventListener("DOMContentLoaded", function () {
-    GetLocalStorage("storepeople")
-});
+// document.addEventListener("DOMContentLoaded", function () {
+//     GetLocalStorage("storestaff")
+// });
 let staff = []
 
 
@@ -8,13 +8,13 @@ const addform = document.forms[0]
 addform.addEventListener("submit", (e) => {
     e.preventDefault()
     let person = {
-        name: addform.name.value,
+        fullname: addform.name.value,
         ref: addform.ref.value
     }
     GetLocalStorage("storestaff")
     staff.push(person)
     StoreToLocalStorage(staff, "storestaff")
-    console.log(staff)
+    renderstaffcards()
 })
 
 function renderstaffcards() {
