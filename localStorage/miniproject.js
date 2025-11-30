@@ -23,6 +23,7 @@ function addnewtask() {
         StoreToLocalStorage(tasks, "localtasks")
         RenderTasks()
     })
+
 }
 addnewtask()
 
@@ -47,7 +48,7 @@ function RenderTasks() {
                         <button class="btn btn-outline-primary btn-sm btn-action w-45">
                             <i class="bi bi-pencil-square me-1"></i> Modify
                         </button>
-                        <button class="btn btn-outline-danger btn-sm btn-action w-45">
+                        <button class="editbtn btn btn-outline-danger btn-sm btn-action w-45">
                             <i class="bi bi-trash me-1"></i> Delete
                         </button>
                     </div>
@@ -55,5 +56,17 @@ function RenderTasks() {
             </div>`
     })
     taskscontainer.appendChild(taskcarddy)
+    const editbtns = taskcarddy.querySelectorAll(".editbtn")
+
+    editbtns.forEach((editbtn) => {
+        editbtn.addEventListener("click", function () {
+            console.log("edit works now!")
+        })
+    })
 }
 RenderTasks()
+
+// function editTask(){
+
+// }
+// editTask()
