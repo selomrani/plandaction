@@ -20,6 +20,12 @@ function addnewtask() {
         }
         tasks.push(newtask)
         console.log(tasks)
+        StoreToLocalStorage(tasks,"localtasks")
     })
 }
 addnewtask()
+
+function StoreToLocalStorage(item, key) {
+    const ToStore = JSON.stringify(item)
+    localStorage.setItem(key, ToStore)
+}
