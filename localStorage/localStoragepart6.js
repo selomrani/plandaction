@@ -1,6 +1,7 @@
-// document.addEventListener("DOMContentLoaded", function () {
-//     GetLocalStorage("storestaff")
-// });
+document.addEventListener("DOMContentLoaded", function () {
+    GetLocalStorage("storestaff")
+    renderstaffcards()
+});
 let staff = []
 
 
@@ -34,26 +35,26 @@ function renderstaffcards() {
             </div>`
     })
     cardsholder.appendChild(staffcard)
+    const delteBtns = document.querySelectorAll(".delete")
+    delteBtns.forEach(deleteBtn => {
+        deleteBtn.addEventListener("click", (e) => {
+            const dltref = e.currentTarget.getAttribute("staff-ref");
+            const staffToDelete = staff.find(staffMember => {
+                return staffMember.ref == dltref
+            })
+            for (let i = 0; i < staff.length; i++) {
+                if (staff[i] == staffToDelete) {
+                    staff.splice(i, 1)
+                }
+            }
+            StoreToLocalStorage(staff, "storestaff")
+            console.log(staff)
+        })
+
+    })
 }
 renderstaffcards()
-StoreToLocalStorage(staff, "storestaff")
-const delteBtns = document.querySelectorAll(".delete")
-delteBtns.forEach(deleteBtn => {
-    deleteBtn.addEventListener("click", (e) => {
-        const dltref = e.currentTarget.getAttribute("staff-ref");
-        const staffToDelete = staff.find(staffMember => {
-            return staffMember.ref == dltref
-        })
-        for (let i = 0; i < staff.length; i++) {
-            if (staff[i] == staffToDelete) {
-                staff.splice(i, 1)
-            }
-        }
-        StoreToLocalStorage(staff, "storestaff")
-        console.log(staff)
-    })
 
-})
 function StoreToLocalStorage(item, key) {
     const ToStore = JSON.stringify(item)
     localStorage.setItem(key, ToStore)
