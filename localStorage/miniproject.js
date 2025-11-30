@@ -21,6 +21,7 @@ function addnewtask() {
         tasks.push(newtask)
         console.log(tasks)
         StoreToLocalStorage(tasks, "localtasks")
+        RenderTasks()
     })
 }
 addnewtask()
