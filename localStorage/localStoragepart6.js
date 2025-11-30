@@ -66,3 +66,4 @@ function GetLocalStorage(key) {
     staff = localdata
 }
 
+//  finished part 6
