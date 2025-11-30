@@ -48,7 +48,8 @@ function renderstaffcards() {
                 }
             }
             StoreToLocalStorage(staff, "storestaff")
-            console.log(staff)
+            renderstaffcards()
+
         })
 
     })
