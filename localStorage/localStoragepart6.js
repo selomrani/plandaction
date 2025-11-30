@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    GetLocalStorage("storestaff")
+    loadLocal("storestaff")
     renderstaffcards()
 });
 let staff = []
@@ -12,7 +12,7 @@ addform.addEventListener("submit", (e) => {
         fullname: addform.name.value,
         ref: addform.ref.value
     }
-    GetLocalStorage("storestaff")
+    loadLocal("storestaff")
     staff.push(person)
     StoreToLocalStorage(staff, "storestaff")
     renderstaffcards()
@@ -60,10 +60,27 @@ function StoreToLocalStorage(item, key) {
     const ToStore = JSON.stringify(item)
     localStorage.setItem(key, ToStore)
 }
-function GetLocalStorage(key) {
-    let getlocal = localStorage.getItem(key)
-    let localdata = JSON.parse(getlocal)
-    staff = localdata
-}
 
 //  finished part 6
+
+
+
+// part 7 
+function loadLocal(key) {
+    let getlocal = localStorage.getItem(key);
+    if (getlocal === null) {
+        staff = [];
+        return;
+    }
+
+    try {
+        let localdata = JSON.parse(getlocal);
+        staff = localdata;
+    } catch (error) {
+        console.error("Couldnt retrive data (data not found , error (404))")
+        staff = [];
+    }
+}
+// function loadLocal(key) {
+//     return JSON.parse(localStorage.getItem(key)) || [];
+// }
