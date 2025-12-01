@@ -16,12 +16,12 @@ function addNewContact() {
     })
 }
 addNewContact()
-function RenderContacts() {
+function RenderContacts(array) {
     const contactList = document.getElementById("contactList")
     const contactCard = document.createElement("div")
     contactList.innerHTML = ``
     contacts.forEach((contact) => {
-        contactCard.innerHTML += `                    <div class="card mb-3 w-100">
+        contactCard.innerHTML += `                    <div class="Contactcard mb-3 w-100">
                         <div class="card-body">
                             <h5 class="card-title fw-bold">${contact.fullname}</h5>
                             <div class="card-text mb-3">
@@ -92,13 +92,32 @@ function RenderContacts() {
                             fullname: editform.editFullName.value,
                             email: editform.editemail.value,
                             phone: editform.editphone.value,
-                            ref: contacts[i].ref 
+                            ref: contacts[i].ref
                         }
-                        RenderContacts() 
+                        RenderContacts()
                     })
-                    
+
                 }
             }
         })
     })
 }
+
+function seachbyEmail() {
+    const search = document.forms["search"]
+    
+    search.addEventListener("submit", (e) => {
+        e.preventDefault()
+        const searchkeyword = search.searchinput.value
+
+        const cards = document.querySelectorAll("Contactcard")
+        cards.forEach((card) => {
+            if (card.innerText.includes(searchkeyword)) {
+                card.style.display = "block" 
+            } else {
+                card.style.display = "none"  
+            }
+        })
+    })
+}
+seachbyEmail()
