@@ -31,7 +31,7 @@ function RenderContacts() {
                                 <div><i class="bi bi-telephone me-2 text-success"></i>${contact.phone}</div>
                             </div>
                             <div class="d-flex gap-2">
-                                <button class="btn btn-warning flex-fill" data-bs-toggle="modal" data-bs-target="EditContact"><i class="bi bi-pencil-square"></i>
+                                <button class="editbtn btn btn-warning flex-fill" data-bs-toggle="modal" data-bs-target="#EditContact" data-ref="${contact.ref}"><i class="bi bi-pencil-square"></i>
                                     Edit</button>
                                 <button class="deletebtn btn btn-danger flex-fill" data-ref="${contact.ref}"><i class="bi bi-trash"></i> Delete</button>
                             </div>
@@ -54,4 +54,44 @@ function RenderContacts() {
             }
         })
     })
+    const editbtns = document.querySelectorAll(".editbtn")
+    const editbody = document.getElementById("editbody")
+    editbtns.forEach((editbtn) => {
+        editbtn.addEventListener("click", (e) => {
+            const currentref = e.target.getAttribute("data-ref")
+            const contactToEdit = contacts.find((contact) => {
+                return contact.ref == currentref
+            })
+            for (let i = 0; i < contacts.length; i++) {
+                if (contacts[i] == contactToEdit) {
+                    editbody.innerHTML = `                    <form class="form" name="editform">
+                        <div class="mb-3">
+                            <label for="FullName" class="form-label">Full Name</label>
+                            <input type="text" id="editFullName" name="FullName" class="form-control" value="${contacts[i].fullname}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email">Email</label>
+                            <input type="email" id="editemail" name="email" class="form-control" value="${contacts[i].email}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone number</label>
+                            <input type="tel" id="editphone" name="phone" class="form-control" value="${contacts[i].phone}">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Add new contact</button>
+                        </div>
+                    </form>`
+                    const editform = document.forms["editform"]
+                    contacts[i] = {
+                        fullname: editform.editFullName.value,
+                        email: editform.editemail.value,
+                        phone: editform.editphone.value
+                    }
+                }
+            }
+            RenderContacts()
+        })
+    })
+
 }
