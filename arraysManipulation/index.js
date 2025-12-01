@@ -56,15 +56,18 @@ function RenderContacts() {
     })
     const editbtns = document.querySelectorAll(".editbtn")
     const editbody = document.getElementById("editbody")
+
     editbtns.forEach((editbtn) => {
         editbtn.addEventListener("click", (e) => {
             const currentref = e.target.getAttribute("data-ref")
             const contactToEdit = contacts.find((contact) => {
                 return contact.ref == currentref
             })
+
             for (let i = 0; i < contacts.length; i++) {
                 if (contacts[i] == contactToEdit) {
-                    editbody.innerHTML = `                    <form class="form" name="editform">
+                    editbody.innerHTML = `
+                    <form class="form" name="editform">
                         <div class="mb-3">
                             <label for="FullName" class="form-label">Full Name</label>
                             <input type="text" id="editFullName" name="FullName" class="form-control" value="${contacts[i].fullname}">
@@ -79,19 +82,23 @@ function RenderContacts() {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Add new contact</button>
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save Changes</button>
                         </div>
                     </form>`
                     const editform = document.forms["editform"]
-                    contacts[i] = {
-                        fullname: editform.editFullName.value,
-                        email: editform.editemail.value,
-                        phone: editform.editphone.value
-                    }
+                    editform.addEventListener("submit", (e) => {
+                        e.preventDefault()
+                        contacts[i] = {
+                            fullname: editform.editFullName.value,
+                            email: editform.editemail.value,
+                            phone: editform.editphone.value,
+                            ref: contacts[i].ref 
+                        }
+                        RenderContacts() 
+                    })
+                    
                 }
             }
-            RenderContacts()
         })
     })
-
 }
