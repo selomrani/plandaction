@@ -36,6 +36,19 @@
             <div class="container col-8">
                 <h1>Total contacts : <span id="total"></span></h1>
                 <hr>
+                <h5>Sort by name </h5>
+                <form name="sortform">
+                    <div class="d-flex gap-2">
+                        <select class="form-select" aria-label="Default select example">
+                            <option value="1">A to Z</option>
+                            <option value="2">Z to A</option>
+                        </select>
+                        <button type="submit" class="btn btn-success">Apply</button>
+                    </div>
+                </form>
+                <div id="rendersort" class="d-flex gap-2 mt-3 flex-wrap">
+
+                </div>
             </div>
         </div>
     </div>

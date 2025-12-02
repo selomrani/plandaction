@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     GetLocalStorage("LocalContacts")
     RenderContacts(contacts)
+    rendersortedContacts()
     CalculateTotalContacts()
 });
 let contacts = [];
@@ -18,6 +19,7 @@ function addNewContact() {
         addForm.reset();
         console.log(contacts)
         RenderContacts(contacts)
+        rendersortedContacts()
         StoreToLocalStorage(contacts, "LocalContacts")
         CalculateTotalContacts()
     })
@@ -28,7 +30,7 @@ function RenderContacts(array) {
     const contactCard = document.createElement("div")
     contactList.innerHTML = ``
     array.forEach((contact) => {
-        contactCard.innerHTML += `                    <div class="Contactcard mb-3 w-100">
+        contactCard.innerHTML += `                    <div class="Contactcard mb-3 w-100 border border-secondary p-2 rounded-1">
                         <div class="card-body">
                             <h5 class="card-title fw-bold">${contact.fullname}</h5>
                             <div class="card-text mb-3">
@@ -60,6 +62,7 @@ function RenderContacts(array) {
                 StoreToLocalStorage(contacts, "LocalContacts")
                 RenderContacts(contacts)
                 CalculateTotalContacts()
+                rendersortedContacts()
             }
         })
     })
@@ -147,4 +150,23 @@ function CalculateTotalContacts (){
     let totalcontacts = 0
     totalcontacts = contacts.length
     total.innerText = totalcontacts
+}
+
+function rendersortedContacts(){
+    const rendersort = document.getElementById(("rendersort"))
+    const sortcontacts = document.createElement("div")
+    rendersort.innerHTML+=``
+    contacts.forEach((contact)=>{
+        sortcontacts.innerHTML = `<div class="Contactcard mb-3 w-100 border border-secondary p-2 rounded-1">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">${contact.fullname}</h5>
+                            <div class="card-text mb-3">
+                                <div class="mb-1"><i
+                                        class="bi bi-envelope me-2 text-primary"></i>${contact.email}
+                                </div>
+                                <div><i class="bi bi-telephone me-2 text-success"></i>${contact.phone}</div>
+                            </div>
+                        </div>`
+                        rendersort.appendChild(sortcontacts)
+    })
 }
