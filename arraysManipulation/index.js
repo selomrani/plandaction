@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    GetLocalStorage("LocalContacts")
+    loadLocal("LocalContacts")
     RenderContacts(contacts)
     rendersortedContacts()
     CalculateTotalContacts()
@@ -135,14 +135,22 @@ function StoreToLocalStorage(item, key) {
     localStorage.setItem(key, ToStore)
 }
 
-function GetContactsFromLocalStorage(key) {
 
-}
 
-function GetLocalStorage(key) {
-    let getlocal = localStorage.getItem(key)
-    let localdata = JSON.parse(getlocal)
-    contacts = localdata
+function loadLocal(key) {
+    let getlocal = localStorage.getItem(key);
+    if (getlocal === null) {
+        contacts = [];
+        return;
+    }
+
+    try {
+        let localdata = JSON.parse(getlocal);
+        contacts = localdata;
+    } catch (error) {
+        console.error("Couldnt retrive data (data not found , error (404))")
+        contacts = [];
+    }
 }
 
 function CalculateTotalContacts (){
