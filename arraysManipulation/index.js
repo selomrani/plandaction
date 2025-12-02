@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", function () {
+    GetLocalStorage("LocalContacts")
+    RenderContacts(contacts)
+});
 let contacts = [];
 function addNewContact() {
     const addForm = document.forms["addForm"];
@@ -13,6 +17,7 @@ function addNewContact() {
         addForm.reset();
         console.log(contacts)
         RenderContacts(contacts)
+        StoreToLocalStorage(contacts, "LocalContacts")
     })
 }
 addNewContact()
@@ -50,6 +55,7 @@ function RenderContacts(array) {
                 if (array[i] == foundContact) {
                     array.splice([i], 1)
                 }
+                StoreToLocalStorage(contacts, "LocalContacts")
                 RenderContacts()
             }
         })
@@ -95,6 +101,7 @@ function RenderContacts(array) {
                             ref: contacts[i].ref
                         }
                         RenderContacts(contacts)
+                        StoreToLocalStorage(contacts, "LocalContacts")
                     })
 
                 }
@@ -105,11 +112,11 @@ function RenderContacts(array) {
 
 function seachbyEmail() {
     const search = document.forms["search"]
-    
+
     search.addEventListener("submit", (e) => {
         e.preventDefault()
         const searchkeyword = search.searchinput.value
-        const searchedcontact = contacts.find((contact)=>{
+        const searchedcontact = contacts.find((contact) => {
             return contact.email == searchkeyword
         })
         RenderContacts([searchedcontact])
@@ -117,4 +124,18 @@ function seachbyEmail() {
 }
 seachbyEmail()
 
+function StoreToLocalStorage(item, key) {
+    const ToStore = JSON.stringify(item)
+    localStorage.setItem(key, ToStore)
+}
+
+function GetContactsFromLocalStorage(key) {
+
+}
+
+function GetLocalStorage(key) {
+    let getlocal = localStorage.getItem(key)
+    let localdata = JSON.parse(getlocal)
+    contacts = localdata
+}
 
