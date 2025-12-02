@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     GetLocalStorage("LocalContacts")
     RenderContacts(contacts)
+    CalculateTotalContacts()
 });
 let contacts = [];
 function addNewContact() {
@@ -18,6 +19,7 @@ function addNewContact() {
         console.log(contacts)
         RenderContacts(contacts)
         StoreToLocalStorage(contacts, "LocalContacts")
+        CalculateTotalContacts()
     })
 }
 addNewContact()
@@ -57,6 +59,7 @@ function RenderContacts(array) {
                 }
                 StoreToLocalStorage(contacts, "LocalContacts")
                 RenderContacts(contacts)
+                CalculateTotalContacts()
             }
         })
     })
@@ -139,3 +142,9 @@ function GetLocalStorage(key) {
     contacts = localdata
 }
 
+function CalculateTotalContacts (){
+    const total = document.getElementById("total")
+    let totalcontacts = 0
+    totalcontacts = contacts.length
+    total.innerText = totalcontacts
+}
