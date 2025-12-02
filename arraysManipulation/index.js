@@ -56,7 +56,7 @@ function RenderContacts(array) {
                     array.splice([i], 1)
                 }
                 StoreToLocalStorage(contacts, "LocalContacts")
-                RenderContacts()
+                RenderContacts(contacts)
             }
         })
     })
