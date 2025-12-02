@@ -12,7 +12,7 @@ function addNewContact() {
         contacts.push(newContact);
         addForm.reset();
         console.log(contacts)
-        RenderContacts()
+        RenderContacts(contacts)
     })
 }
 addNewContact()
@@ -20,7 +20,7 @@ function RenderContacts(array) {
     const contactList = document.getElementById("contactList")
     const contactCard = document.createElement("div")
     contactList.innerHTML = ``
-    contacts.forEach((contact) => {
+    array.forEach((contact) => {
         contactCard.innerHTML += `                    <div class="Contactcard mb-3 w-100">
                         <div class="card-body">
                             <h5 class="card-title fw-bold">${contact.fullname}</h5>
@@ -46,9 +46,9 @@ function RenderContacts(array) {
                 return contact.ref == currentref
             })
             console.log(foundContact)
-            for (let i = 0; i < contacts.length; i++) {
-                if (contacts[i] == foundContact) {
-                    contacts.splice([i], 1)
+            for (let i = 0; i < array.length; i++) {
+                if (array[i] == foundContact) {
+                    array.splice([i], 1)
                 }
                 RenderContacts()
             }
@@ -60,25 +60,25 @@ function RenderContacts(array) {
     editbtns.forEach((editbtn) => {
         editbtn.addEventListener("click", (e) => {
             const currentref = e.target.getAttribute("data-ref")
-            const contactToEdit = contacts.find((contact) => {
+            const contactToEdit = array.find((contact) => {
                 return contact.ref == currentref
             })
 
             for (let i = 0; i < contacts.length; i++) {
-                if (contacts[i] == contactToEdit) {
+                if (array[i] == contactToEdit) {
                     editbody.innerHTML = `
                     <form class="form" name="editform">
                         <div class="mb-3">
                             <label for="FullName" class="form-label">Full Name</label>
-                            <input type="text" id="editFullName" name="FullName" class="form-control" value="${contacts[i].fullname}">
+                            <input type="text" id="editFullName" name="FullName" class="form-control" value="${array[i].fullname}">
                         </div>
                         <div class="mb-3">
                             <label for="email">Email</label>
-                            <input type="email" id="editemail" name="email" class="form-control" value="${contacts[i].email}">
+                            <input type="email" id="editemail" name="email" class="form-control" value="${array[i].email}">
                         </div>
                         <div class="mb-3">
                             <label for="phone" class="form-label">Phone number</label>
-                            <input type="tel" id="editphone" name="phone" class="form-control" value="${contacts[i].phone}">
+                            <input type="tel" id="editphone" name="phone" class="form-control" value="${array[i].phone}">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -88,13 +88,13 @@ function RenderContacts(array) {
                     const editform = document.forms["editform"]
                     editform.addEventListener("submit", (e) => {
                         e.preventDefault()
-                        contacts[i] = {
+                        array[i] = {
                             fullname: editform.editFullName.value,
                             email: editform.editemail.value,
                             phone: editform.editphone.value,
                             ref: contacts[i].ref
                         }
-                        RenderContacts()
+                        RenderContacts(contacts)
                     })
 
                 }
@@ -109,15 +109,12 @@ function seachbyEmail() {
     search.addEventListener("submit", (e) => {
         e.preventDefault()
         const searchkeyword = search.searchinput.value
-
-        const cards = document.querySelectorAll("Contactcard")
-        cards.forEach((card) => {
-            if (card.innerText.includes(searchkeyword)) {
-                card.style.display = "block" 
-            } else {
-                card.style.display = "none"  
-            }
+        const searchedcontact = contacts.find((contact)=>{
+            return contact.email == searchkeyword
         })
+        RenderContacts([searchedcontact])
     })
 }
 seachbyEmail()
+
+
