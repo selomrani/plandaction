@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     loadLocal("LocalContacts")
     RenderContacts(contacts)
-    rendersortedContacts()
+    rendersortedContacts(contacts)
     CalculateTotalContacts()
 });
 let contacts = [{
@@ -31,9 +31,8 @@ function addNewContact() {
         };
         contacts.push(newContact);
         addForm.reset();
-        console.log(contacts)
         RenderContacts(contacts)
-        rendersortedContacts()
+        rendersortedContacts(contacts)
         StoreToLocalStorage(contacts, "LocalContacts")
         CalculateTotalContacts()
     })
@@ -76,7 +75,7 @@ function RenderContacts(array) {
                 StoreToLocalStorage(contacts, "LocalContacts")
                 RenderContacts(contacts)
                 CalculateTotalContacts()
-                rendersortedContacts()
+                rendersortedContacts(contacts)
             }
         })
     })
@@ -174,10 +173,10 @@ function CalculateTotalContacts() {
     total.innerText = totalcontacts
 }
 
-function rendersortedContacts() {
+function rendersortedContacts(array) {
     const rendersort = document.getElementById("rendersort");
-    rendersort.innerHTML = ""; 
-    contacts.forEach((contact) => {
+    rendersort.innerHTML = "";
+    array.forEach((contact) => {
         const sortcontacts = document.createElement("div");
         sortcontacts.innerHTML = `
             <div class="Contactcard mb-3 w-100 border border-secondary p-2 rounded-1">
@@ -195,5 +194,24 @@ function rendersortedContacts() {
             </div>`;
         rendersort.appendChild(sortcontacts);
     });
+    SortByName()
 }
 
+function SortByName() {
+    const sortform = document.forms["sortform"]
+    sortform.addEventListener("submit", (e) => {
+        e.preventDefault()
+        if (sortform.selectsort.value == 1) {
+            const contactssorted = contacts.sort((contact1, contact2) => {
+                return contact1.fullname.localeCompare(contact2.fullname);
+            });
+            rendersortedContacts(contactssorted)
+        }
+        else {
+            const contactssorted = contacts.sort((contact2, contact1) => {
+                return contact1.fullname.localeCompare(contact2.fullname);
+            });
+            rendersortedContacts(contactssorted)
+        }
+    })
+}
