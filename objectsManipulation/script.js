@@ -1,16 +1,28 @@
-let contacts = []
+const dataContent = document.getElementById("dataContent");
 
-function addNewContact (){
-    const addForm = document.forms[0]
-    addForm.addEventListener("submit",(e)=>{
-        e.preventDefault()
-        let newContact = {
-            fullname : addForm.FullName.value,
-            email : addForm.email.value,
-            phone : addForm.phone.value
-        }
-          contacts.push(newContact)
-          console.log(contacts)
-    })
-}
-addNewContact()
+let data = [
+    {
+        id: 1,
+        firstname: "Tayeb",
+        lastname: "SOUINI",
+        email: "Tayeb@gmail.com"
+    }
+]
+
+
+function afficherData(oneItem) {
+    dataContent.innerHTML = 
+        <tr>
+                    <th scope="row">${oneItem.firstname}</th>
+                    <td>${oneItem.lastname}</td>
+                    <td>${oneItem.email}</td>
+                    <td>
+                        <button id="${oneItem.id}" class="btn btn-danger">Delete</button>
+                        <button id="${oneItem.id}" class="btn btn-info">Update</button>
+                    </td>
+                </tr>
+    
+} 
+
+
+afficherData(data[0]);
